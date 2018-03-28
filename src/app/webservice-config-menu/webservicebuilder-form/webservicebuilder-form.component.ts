@@ -34,6 +34,7 @@ export class WebServiceBuilderComponent implements OnChanges, OnDestroy {
   checked = [true, false, false, false];
   paramModal;
   paramIndex;
+  goOn;
 
   constructor(private formBuilder: FormBuilder, private projectService: ProjectService, private modalService: NgbModal, private http: Http) {}
 
@@ -238,6 +239,22 @@ export class WebServiceBuilderComponent implements OnChanges, OnDestroy {
                 },
                 (err: any) => console.log(err),
                 () => console.log("BENCHMARKED WEBSERVICE"));
+  }
+
+
+  daLoop() {
+        if (!this.goOn) {
+            this.goOn = setInterval(() => this.testService(), 2000);
+
+            console.log("REEEEEPAT");
+        }
+  }
+
+  stoLoop() {
+
+
+          clearInterval(this.goOn);
+          console.log("STOOOOP");
   }
 
   methodChange(event) {

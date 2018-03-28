@@ -44,6 +44,8 @@ export class EditorComponent implements OnInit {
   benchmarking;
   benchmark_time;
   benchmark_count;
+  goOn;
+  count;
 
   // Mouse Position, used to insert new nodes onto the coordinate.
   rightClickPos: {x: number, y: number};
@@ -310,7 +312,17 @@ export class EditorComponent implements OnInit {
 
   runCurrentProject(): void {
     console.log("Running current projects");
-    
+    console.log(this.count);
+    if (this.count) {
+      if (this.count >= 4) {
+          clearInterval(this.goOn);
+          console.log("STOOOOP");
+      }
+      else{
+          this.count = this.count + 1;
+      }
+
+    }
     this.benchmarking = true;
     this.benchmark_time = 0;
     this.benchmark_count = 0;
@@ -319,6 +331,20 @@ export class EditorComponent implements OnInit {
     current_project.nodes.forEach((n:Node) => {
       this.runNode(n);
     });
+  }
+
+  runTweFo(): void {
+      if (!this.goOn) {
+          this.goOn = setInterval(() => this.runCurrentProject(), 2000);
+          this.count = 1;
+          console.log("REEEEEPAT");
+      }
+  }
+
+  stoAllLoop() {
+    clearInterval(this.goOn);
+    this.count = 0;
+    console.log("STOOOOP");
   }
 
   runProject(project, node=null): void {

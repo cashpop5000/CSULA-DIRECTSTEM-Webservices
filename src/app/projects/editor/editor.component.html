@@ -181,6 +181,18 @@
     <i class="fa fa-play-circle-o"
        aria-hidden="true"></i>&nbsp;Run All</a>
 
+  <a class="dropdown-item"
+     *ngIf="!selectedNode && !graph.state.selectedEdge"
+     (click)="runTweFo()">
+    <i class="fa fa-play-circle-o"
+       aria-hidden="true"></i>&nbsp;24 hour RUN ALL</a>
+
+  <a class="dropdown-item"
+     *ngIf="!selectedNode && !graph.state.selectedEdge"
+     (click)="stoAllLoop()">
+    <i class="fa fa-play-circle-o"
+       aria-hidden="true"></i>&nbsp;24 hour STOP ALL</a>
+
   <!-- RUN WS -->
   <a class="dropdown-item"
      *ngIf="selectedNode && !graph.state.selectedEdge"
