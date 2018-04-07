@@ -478,9 +478,11 @@ export class Graph {
       var node_index = thisGraph.nodes.indexOf(node);
       thisGraph.removeEdgesWithNodeIndex(node_index);
       thisGraph.nodes.splice(node_index, 1);
+
       /* Remove all edges originating from this node. */
       //thisGraph.removeEdgesWithNode(node);
       //thisGraph.spliceLinksFormNode(selectedNode);
+      
       /* Remove the node from all neighbors field */
       //this.removeFromNeighbor(selectedNode);
       thisGraph.state.selectedNode = null;
@@ -501,6 +503,13 @@ export class Graph {
         //this.paths.splice(edge_index, 1);
       });
       console.log("Purged " + to_purge.length + " edges");
+
+      // properly update indices to account for the node being gone
+      const to_update = this.edges.filter(edge => edge.source > node_index || edge.target > node_index);
+      to_update.forEach(edge => {
+        if(edge.source > node_index) edge.source--;
+        if(edge.target > node_index) edge.target--;
+      })
     }
     console.log("There are " + this.edges.length + " edges remaining");
   }
